@@ -14,10 +14,103 @@ const limiter = rateLimit({
 const router =express.Router()
 
 //routes
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *    User:
+ *      type: object
+ *      required:
+ *        - name
+ *        - lastName
+ *        - email
+ *        - password
+ *        - location
+ *      properties:
+ *        id:
+ *          type: string
+ *          description: The auto-generated id of the user collection
+ *        name:
+ *          type: string
+ *          description: User name
+ *        lastName:
+ *          type: string
+ *          description: User Last Name
+ *        email:
+ *          type: string
+ *          description: User email address
+ *        password:
+ *          type: string
+ *          description: User password should be greater than 6 characters
+ *        location:
+ *          type: string
+ *          description: User location city or country
+ *      example:
+ *        id: GHJDFJHDFJH
+ *        name: John
+ *        lastName: Doe
+ *        email: johndoe@gmail.com
+ *        password: test@123
+ *        location: Mumbai
+ */
+
+/**
+ * @swagger
+ *  tags:
+ *    name: Auth
+ *    description: authentication apis
+ */
+
+/**
+ * @swagger
+ * /api/v1/auth/register:
+ *    post:
+ *     summary: Register new user
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *       200:
+ *         description: User created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       500:
+ *         description: Internal server error
+ */
 //REGISTER || POST
-router.post('/register',limiter,registerController)
+router.post('/register',limiter,registerController);
+
+/**
+ * @swagger
+ * /api/v1/auth/login:
+ *   post:
+ *     summary: login page
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/User'
+ *     responses:
+ *      200:
+ *        description:  login successful
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/User'
+ *      500:
+ *        description: something went wrong
+ */
 
 //LOGIN || POST
 router.post('/login',limiter,loginController);
 //export
-export default router
+export default router;

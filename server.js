@@ -5,6 +5,10 @@ import dotenv from 'dotenv';
 import colors from 'colors';
 import cors from 'cors'
 import morgan from 'morgan';
+
+//API Documentation
+import swaggerUi from 'swagger-ui-express';
+import swaggerDoc from 'swagger-jsdoc';
 //security packages
 import helmet from 'helmet';
 import xss from 'xss-clean';
@@ -26,6 +30,27 @@ dotenv.config();
 
 //mongodb connection
 connectDB();
+
+// Swagger api config
+//swagger api options
+const options={
+    definition:{
+        openapi:'3.0.0',
+        info:{
+            title:'Job Portal Application',
+            version:'1.0.0',
+            description:'Node Expressjs Job Portal Application ',
+        },
+        servers:[
+            {
+                url:"http://localhost:8080"
+            }
+        ]
+    },
+    apis:['./routes/*.js'],
+    };
+
+const spec=swaggerDoc(options);    
 //rest object
 const app= express()
 
@@ -43,6 +68,8 @@ app.use("/api/v1/auth",authRoutes);
 app.use("/api/v1/user",userRoutes);
 app.use("/api/v1/job", jobsRoutes);
 
+//homeroute
+app.use("/api-doc",swaggerUi.serve,swaggerUi.setup(spec));
 //validation middleware
 app.use(errorMiddleware);
 
