@@ -1,37 +1,38 @@
 import React,{useState} from 'react';
 import {Link} from "react-router-dom";
+import InputForm from '../components/shared/InputForm';
 const Register = () => {
-  // const [name, setName] = useState("");
-  // const [lastName, setLastName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   
-  const [values,setValues]=useState({
-    name:"",
-    lastName:"",
-    email:"",
-    password:""
-  })
-  //handle inputs
-  const handleChange=(e)=>{
-  const value=e.target.value
-  setValues({
-    ...values,
-    [e.target.name]:value
-  });
-  };
+  // const [values,setValues]=useState({
+  //   name:"",
+  //   lastName:"",
+  //   email:"",
+  //   password:""
+  // })
+  // //handle inputs
+  // const handleChange=(e)=>{
+  // const value=e.target.value
+  // setValues({
+  //   ...values,
+  //   [e.target.name]:value
+  // });
+  // };
   //form function
   const handleSubmit= (e) => {
     e.preventDefault()
     try{
-      console.log(values);
+      console.log(name,email,password,lastName);
     } catch(error){
       console.log(error);
     }
   }
   return (
     <>
-    <div className="form-container">
+     <div className="form-container">
      <form className="card p-2" onSubmit={handleSubmit}>
       <img 
       src="/assets/images/logo/logo.png" 
@@ -39,7 +40,38 @@ const Register = () => {
       height={150} 
       width={400}
       />
-        <div className="mb-1 ">
+      <InputForm 
+      htmlFor="name" 
+      labelText={"Name"}
+      type={"text"} 
+      value={name} 
+      handleChange={(e)=>setName(e.target.value)}
+      name="name"
+      />
+      <InputForm 
+      htmlFor="lastName" 
+      labelText={"Last Name"}
+      type={"text"} 
+      value={lastName} 
+      handleChange={(e)=>setLastName(e.target.value)}
+      name="lastName"
+      />
+      <InputForm 
+      htmlFor="email" 
+      labelText={"Email"}
+      type={"email"} 
+      value={email} 
+      handleChange={(e)=>setEmail(e.target.value)}
+      name="email"
+      />
+      <InputForm htmlFor="password" 
+      labelText={"Password"}
+      type={"password"} 
+      value={password} 
+      handleChange={(e)=>setPassword(e.target.value)}
+      name="password"
+      />
+        {/* <div className="mb-1 ">
           <label htmlFor="name" className="form-label">
            Name
           </label>
@@ -93,7 +125,7 @@ const Register = () => {
              onChange={handleChange}
              
            />
-       </div>
+       </div> */} 
       
       <div className="d-flex justify-content-between">
         <p>
