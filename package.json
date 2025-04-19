@@ -7,8 +7,8 @@
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
-    "client":"npm start --prefix ./client", 
-    "dev":"concurrently \"npm run server\" \"npm run client\""
+    "client": "npm start --prefix ./client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",
   "license": "ISC",
@@ -28,6 +28,7 @@
     "mongoose": "^8.12.1",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.9",
+    "react-toastify": "^8.2.0",
     "swagger-doc": "^0.3.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
