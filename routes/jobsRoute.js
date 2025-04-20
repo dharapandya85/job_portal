@@ -21,4 +21,5 @@ router.delete('/delete-job/:id',userAuth,deleteJobController)
 //JOB STATS FILTER || GET
 router.get('/job-stats',userAuth,jobStatsController)
 
+
 export default router;

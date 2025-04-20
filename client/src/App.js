@@ -11,6 +11,8 @@ import {ToastContainer,toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import PrivateRoute from './components/routes/PrivateRoute';
 import PublicRoute from './components/routes/PublicRoute';
+import LatestJobs from './pages/LatestJobs';
+import UpdateProfile from './pages/UpdateProfile';
 function App() {
   return (
     <>
@@ -33,6 +35,8 @@ function App() {
           </PublicRoute>
           } />
         <Route path="/dashboard" element={<PrivateRoute><Dashboard/></PrivateRoute>} />
+        <Route path="/latest-jobs" element={<PrivateRoute><LatestJobs/></PrivateRoute>} />
+        <Route path="/update-profile" element={<PrivateRoute><UpdateProfile/></PrivateRoute>} />
         <Route path="*" element={<NotFound/>} />
       </Routes>
     </>

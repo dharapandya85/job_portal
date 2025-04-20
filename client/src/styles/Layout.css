@@ -28,5 +28,47 @@
 }
 .active a, .active i{
  color:#2e2300;
- 
+
+}
+.card{
+    border-radius:12px;
+    transition:0.3s ease-in-out;
+    
+}
+.card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 0 12px rgba(0,0,0,0.15);
+    
+}
+.job-listings{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    grid:1.5 rem;
+    padding:2rem;
+}
+.job-card{
+    background-color:#fff;
+    border-radius:16px;
+    box-shadow:0 4px 20px rgba(0,0,0,0.1);
+    padding:1.5rem;
+    transition:transform 0.2s ease;
+    
+}
+.job-card:hover{
+    transform:translateY(-5px);
+    
+}
+.job-title{
+    font-size:1.2rem;
+    font-weight:600;
+    margin-bottom:0.5rem;
+}
+.job-company{
+    color:#888;
+    margin-bottom:1 rem;
+}
+.job-detail span{
+    display:block;
+    margin-bottom:0.3rem;
+    font-size:0.95rem;
 }

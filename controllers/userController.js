@@ -21,23 +21,23 @@ export const updateUserController=async(req,res,next)=>{
 //get User data
 export const getUserController=async(req,res,next)=>{
 try{
-    const user =await userModel.findById({_id:req.body.user.userId});
-    const userId= req.user.userId;
+    //const user =await userModel.findById({_id:req.user.userId});
+    const userId= req.user?.userId;
     //console.log("User ID not found",userId);
-    user.password= undefined;
+    //user.password= undefined;
     if(!userId){
         return res.status(200).send({
             message:'User Not Found',
             success:false,
         });
     }
-    //const user =await userModel.findById(userId);
-    else{
+    const user =await userModel.findById(userId).select("-password");
+    
        res.status(200).send({
             success:true,
             data:user,
         });
-    }
+    
 }catch(error){
     console.log(error);
     res.status(500).send({

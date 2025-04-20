@@ -9,6 +9,7 @@ import {setUser} from "../../redux/features/auth/authSlice";
 const PrivateRoute = ({children}) => {
     const {user}=useSelector((state)=>state.auth);
     const dispatch=useDispatch();
+    //const [authChecked,setAuthChecked]=useState(false);
     const navigate=useNavigate();
 
     const getUser=async()=>{
@@ -26,25 +27,31 @@ const PrivateRoute = ({children}) => {
             if(data.success){
                 dispatch(setUser(data.data));
             }else{
-                
-                toast.error('Session expired. Please log in again');
-                navigate("/login");
+                localStorage.clear();
+                 
+                // navigate("/login");
             }
 
         } catch(error){
-            localStorage.clear();
+            
             dispatch(hideLoading());
-            console.log(error);
-
+            // toast.error(error.response?.data?.message||'Invalid Credentials');
+            // console.log("Login error:",error.response||error);
+            localStorage.clear();
         }
+            //console.log(error);
+
+        // }finally{
+        //     setAuthChecked(true);
+        // }
     };
     useEffect(()=>{
         if(!user && localStorage.getItem("token")){
             getUser();
-        }
-        //console.log("Token:",localStorage.getItem("token"));
+         }
+        
     },[user]);
-
+    //if(!authChecked) return null;
     if (localStorage.getItem("token")){
         return children; 
         
@@ -52,6 +59,7 @@ const PrivateRoute = ({children}) => {
         
         return <Navigate to="/login" />;
     }
+
 };
  
 

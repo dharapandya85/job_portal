@@ -5,8 +5,8 @@ export const userMenu=[
         icon:"fa-solid fa-house",
     },
     {
-        name:"Latest Job",
-        path:"/jobs",
+        name:"Latest Jobs",
+        path:"/latest-jobs",
         icon:"fa-solid fa-briefcase"
     },
     {

@@ -3,6 +3,7 @@ import "../../styles/Layout.css";
 import { userMenu } from './Menus/UserMenu';
 import {Link,useLocation,useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
+import {useSelector} from "react-redux";
 
 const Layout = ({children}) => {
   const location = useLocation();
@@ -22,6 +23,7 @@ const Layout = ({children}) => {
                 <h6 >JOB PORTAL</h6>
             </div>
             <hr/>
+            
             <p className="text-center text-warning">Welcome: username</p>
             <hr/>
             <div className="menu"> 
