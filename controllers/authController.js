@@ -26,7 +26,7 @@ export const registerController= async(req,res,next)=>{
             message:"User Created Successfully",
             user:{
                 name:user.name,
-                lastname:user.lastname,
+                lastName:user.lastName,
                 email:user.email,
                 location:user.location,
             },

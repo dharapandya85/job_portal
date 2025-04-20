@@ -24,8 +24,9 @@ const Login = () => {
       if(data.success){
         dispatch(hideLoading())
         localStorage.setItem('token',data.token)
-        toast.success('Login Successfully')
-        navigate('/dashboard')
+        toast.success('Login Successfully');
+        navigate('/dashboard');
+        console.log("Login Response:",data);
       }
     } catch(error){
       dispatch(hideLoading())
