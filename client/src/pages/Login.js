@@ -10,6 +10,7 @@ import Spinner from './../components/shared/Spinner';
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+const [ setLoading] = useState(false);
   //hooks
   const navigate= useNavigate()
   const dispatch=useDispatch()
@@ -23,29 +24,45 @@ const Login = () => {
       const {data}=await axios.post('/api/v1/auth/login',{email,password})
       if(data.success){
         dispatch(hideLoading())
-        localStorage.setItem('token',data.token)
+        localStorage.setItem('token',data.token);
+        localStorage.setItem('user',JSON.stringify(data.user));
+
         toast.success('Login Successfully');
-        navigate('/dashboard');
-        console.log("Login Response:",data);
+
+        //const userRole=data?.user?.role ||'student';
+        if(data.user.role==='recruiter'){
+          navigate('/recruiter/dashboard');
+        }else {
+          navigate("/student/dashboard");
+        } 
       }
+      // } catch(error){
+        
+      //   dispatch(hideLoading());
+      //   alert('Error logging in')
+      // }
+      //   navigate('/dashboard');
+      //   console.log("Login Response:",data);
+      // }
     } catch(error){
       dispatch(hideLoading())
       toast.error('Invalid Credentials please try again!');
       console.log(error);
     }
-    try{
-      const response =await axios.post('/api/v1/auth/login',{email,password});
-      setLoading(false);
-      if(response.data.role==='recruiter'){
-        navigate('/recruiter/dashboard');
-      }else{
-        navigate("/student/dashboard");
-      }
-    } catch(error){
-      setLoading(false);
-      alert('Error logging in')
-    }
-  };
+  //   try{
+  //     const response =await axios.post('/api/v1/auth/login',{email,password});
+  //     setLoading(false);
+  //     if(response.data.role==='recruiter'){
+  //       navigate('/recruiter/dashboard');
+  //     }else{
+  //       navigate("/student/dashboard");
+  //     }
+  //   } catch(error){
+  //     setLoading(false);
+  //     alert('Error logging in')
+  //   }
+  // }
+  }
   return (
     <>
     {loading?(<Spinner/>):(
@@ -87,7 +104,7 @@ const Login = () => {
     )}
       
     </>
-  )
-}
+  );
+};
 
 export default Login;

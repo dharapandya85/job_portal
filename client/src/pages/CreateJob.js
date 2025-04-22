@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import axios from 'axios';
 import {useNavigate} from "react-router-dom";
 import InputForm from './../components/shared/InputForm';
+import '../styles/Jobs.css';
 
 const CreateJob = () => {
     const [company,setCompany]=useState("");
@@ -11,13 +12,13 @@ const CreateJob = () => {
     
     
 
-    const [loading,setLoading]=useState("");
+    const [loading,setLoading]=useState(false);
     const navigate=useNavigate("");
     const handleSubmit=async(e)=>{
         e.preventDefault();
         setLoading(true);
         try{
-            const response=await axios.post('/api/create-job',{
+            const response=await axios.post('/api/v1/job/create-job',{
                 company,
                 position,
                 status,
@@ -31,7 +32,7 @@ const CreateJob = () => {
         }
     };
   return (
-    <div>
+    <div className="job-form-container">
       <h2>Create Job</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -74,7 +75,7 @@ const CreateJob = () => {
         <option value="contract">Contract</option>
         </select>
         </div>
-        <button type='submit' disable={loading}>Create Job</button>
+        <button type='submit' disabled={loading}>Create Job</button>
         </form>
         </div>
   );

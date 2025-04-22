@@ -13,7 +13,7 @@ const HomePage = () => {
          <hr/>
           <div className="card-body" style={{marginTop:"-60px"}}>
             <h5 className="card-title">India's No #1 Career Platform </h5>
-            <p className="card-text">
+            <p className="card-text"> 
               Search and manage your jobs with ease.Free and Open Source Job Portal Application.
             </p>
             <div className="d-flex justify-content-between mt-5">

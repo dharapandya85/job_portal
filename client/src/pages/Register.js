@@ -62,19 +62,20 @@ const Register = () => {
       toast.error('Invalid Form Details Please Try Again!');
       console.log(error);
     }
-    try{
-      const response=await axios.post(`/api/register`,{email,password,role});
-      setLoading(false);
-      if(response.data.role==='recruiter'){
-        navigate('/recruiter/dashboard');
-      }else{
-        navigate('/student/dashboard');
-      }
-    }
-  } catch(error){
-    setLoading(false);
-    alert('Error registering');
-  }
+  
+  //   try{
+  //     const response=await axios.post(`/api/register`,{email,password,role});
+  //     setLoading(false);
+  //     if(response.data.role==='recruiter'){
+  //       navigate('/recruiter/dashboard');
+  //     }else{
+  //       navigate('/student/dashboard');
+  //     }
+  //   }
+  // } catch(error){
+  //   setLoading(false);
+  //   alert('Error registering');
+  // }
 };
   return (
     <>
@@ -197,33 +198,7 @@ const Register = () => {
        </form>
          </div>
     )}
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
-          <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)}
-          required
-          />
-          </div>
-          <div>
-          <label>Password</label>
-          <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)}
-
-          required
-          />
-          </div>
-          <div>
-          <label>Role:</label>
-          <select value={role} onChange={(e)=>setRole(e.target.value)}>
-            <option value='student'>Student</option>
-            <option value='recruiter'>Recruiter</option>
-
-          </select>
-          </div>
-          <button type="submit" disabled={loading}>Register</button>
-     </form>
-     </div>
+   
        </>
   );
 };

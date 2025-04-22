@@ -1,0 +1,28 @@
+.recruiter-dashboard{
+padding:2 rem;
+background-color:#f9f9f9;
+min-height:90vh;
+
+}
+.recruiter-dashboard h2{
+    font-size:2rem;
+    color:#333;
+    margin-bottom:1rem;
+}
+.dashboard-links .btn{
+    padding:0.6rem 1.2rem;
+    text-decoration:none;
+    color:white;
+    border-radius:5px;
+    
+}
+.dashboard-links {
+display:flex;
+gap:1rem;
+}
+.btn-primary{
+    background-color:#007bff;
+}
+.btn-secondary{
+    background-color:#28a745;
+}

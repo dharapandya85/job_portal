@@ -5,7 +5,7 @@ import  React from 'react';
 import HomePage from './pages/HomePage';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
+//import Dashboard from './pages/Dashboard';
 import NotFound from './pages/NotFound';
 import {ToastContainer,toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,6 +15,10 @@ import LatestJobs from './pages/LatestJobs';
 import UpdateProfile from './pages/UpdateProfile';
 import RecruiterDashboard from './pages/RecruiterDashboard';
 import StudentDashboard from './pages/StudentDashboard';
+import JobsList from './pages/JobsList';
+import CreateJob from './pages/CreateJob';
+import EditJob from './pages/EditJob';
+
 function App() {
   return (
     <>
@@ -40,6 +44,10 @@ function App() {
         <Route path="/recruiter/dashboard" element={<PrivateRoute><RecruiterDashboard/></PrivateRoute>} />
         <Route path="/latest-jobs" element={<PrivateRoute><LatestJobs/></PrivateRoute>} />
         <Route path="/update-profile" element={<PrivateRoute><UpdateProfile/></PrivateRoute>} />
+        <Route path="/jobs" element={<JobsList/>} />
+        <Route path="/jobs/create" element={<CreateJob/>} />
+        <Route path="/jobs/edit/:id" element={<EditJob/>} />
+
         <Route path="*" element={<NotFound/>} />
       </Routes>
     </>

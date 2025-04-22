@@ -1,6 +1,6 @@
 import React from 'react';
 import "../../styles/Layout.css";
-import { userMenu } from './Menus/UserMenu';
+import { recruiterMenu,studentMenu } from './Menus/UserMenu';
 import {Link,useLocation,useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import {useSelector} from "react-redux";
@@ -8,7 +8,9 @@ import {useSelector} from "react-redux";
 const Layout = ({children}) => {
   const location = useLocation();
   const navigate=useNavigate();
-  const sidebarMenu=userMenu;
+  const userRole=JSON.parse(localStorage.getItem('user'))?.role;
+
+  const sidebarMenu=userRole==='recruiter'?recruiterMenu:studentMenu;
   //logout handler
   const handleLogout=()=>{
     localStorage.clear()

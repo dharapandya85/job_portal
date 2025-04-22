@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import axios from "axios";
 import {useParams,useNavigate} from "react-router-dom";
+import '../styles/Jobs.css';
 const EditJob = () => {
     const [company,setCompany]=useState("");
     const [position,setPosition]=useState("");
@@ -29,7 +30,7 @@ const EditJob = () => {
         e.preventDefault();
         setLoading(true);
         try{
-            const response=await axios.post(`/api/update-job/${id}`,{
+            const response=await axios.patch(`/api/update-job/${id}`,{
                 company,
                 position,
                 status,
@@ -43,7 +44,7 @@ const EditJob = () => {
         }
     };
   return (
-    <div>
+    <div className="job-form-container">
       <h2>Edit Job</h2>
       <form onSubmit={handleSubmit}>
         <div>

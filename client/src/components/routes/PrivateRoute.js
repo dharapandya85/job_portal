@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import {useDispatch,useSelector} from 'react-redux';
 import {toast} from "react-toastify";
 import {showLoading,hideLoading} from "../../redux/features/alertSlice";
@@ -9,7 +9,7 @@ import {setUser} from "../../redux/features/auth/authSlice";
 const PrivateRoute = ({children}) => {
     const {user}=useSelector((state)=>state.auth);
     const dispatch=useDispatch();
-    //const [authChecked,setAuthChecked]=useState(false);
+    const [authChecked,setAuthChecked]=useState(false);
     const navigate=useNavigate();
 
     const getUser=async()=>{
@@ -29,7 +29,7 @@ const PrivateRoute = ({children}) => {
             }else{
                 localStorage.clear();
                  
-                // navigate("/login");
+                 navigate("/login");
             }
 
         } catch(error){
@@ -41,9 +41,10 @@ const PrivateRoute = ({children}) => {
         }
             //console.log(error);
 
-        // }finally{
-        //     setAuthChecked(true);
         // }
+        finally{
+            setAuthChecked(true);
+        }
     };
     useEffect(()=>{
         if(!user && localStorage.getItem("token")){
@@ -51,14 +52,15 @@ const PrivateRoute = ({children}) => {
          }
         
     },[user]);
-    //if(!authChecked) return null;
-    if (localStorage.getItem("token")){
-        return children; 
+    if(!authChecked) return null;
+    // if (localStorage.getItem("token")){
+    //     return children; 
         
-    }else {
+    // }else {
         
-        return <Navigate to="/login" />;
-    }
+    //     return <Navigate to="/login" />;
+    // }
+    return localStorage.getItem('token')?children:<Navigate to="/login" />;
 
 };
  

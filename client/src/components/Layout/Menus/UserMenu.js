@@ -1,7 +1,24 @@
-export const userMenu=[
+export const recruiterMenu=[
     {
         name:"Dashboard",
-        path:"/dashboard",
+        path:"/recruiter/dashboard",
+        icon:"fa-solid fa-house",
+    },
+    {
+        name:"Create Jobs",
+        path:"/jobs/create",
+        icon:"fa-solid fa-briefcase"
+    },
+    {
+        name:"View Jobs",
+        path:"/jobs",
+        icon:"fa-solid fa-eye",
+    },
+];
+export const studentMenu=[
+    {
+        name:"Dashboard",
+        path:"/student/dashboard",
         icon:"fa-solid fa-house",
     },
     {
@@ -11,7 +28,7 @@ export const userMenu=[
     },
     {
         name:"Update Profile",
-        path:"/user/profile",
+        path:"/update-profile",
         icon:"fa-solid fa-user",
     },
 ];

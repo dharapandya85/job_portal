@@ -1,15 +1,18 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-
+import '../styles/RecruiterDashboard.css'
+import Layout from './../components/Layout/Layout';
+import {Outlet} from "react-router-dom";
+//import RecruiterDashboard from './RecruiterDashboard';
 const RecruiterDashboard = () => {
   return (
-    <div>
+    <Layout>
+    <div className="recruiter-dashboard">
         <h2>Recruiter Dashboard</h2>
-        <Link to="/jobs/create">Create New Job</Link>
-        <br/>
-        <Link to="/jobs">View Jobs</Link>
+        <Outlet/>
       
     </div>
+    </Layout>
   );
 };
 

@@ -1,11 +1,14 @@
 import React,{useEffect,useState} from 'react'
 import axios from 'axios';
+import {Link} from "react-router-dom";
+import '../styles/Jobs.css';
 const JobsList = () => {
     const [jobs,setJobs]=useState([]);
     const [loading,setLoading]=useState(true);
     const fetchJobs=async()=>{
         try{
-            const response =await.get('/api/get-job');
+            const response =await axios.get('/api/v1/job/get-job');
+            
             setJobs(response.data.jobs);
             setLoading(false);
         }catch(error){
@@ -20,7 +23,7 @@ const JobsList = () => {
         const confirmDelete= window.confirm('Are you sure you want to delete this job?');
         if(confirmDelete){
             try{
-                await axios.delete(`/api/delete-job/${id}`);
+                await axios.delete(`/api/v1/job/delete-job/${id}`);
                 fetchJobs();
             } catch(error){
                 alert('Error detecting job');
@@ -33,7 +36,7 @@ const JobsList = () => {
       {loading ?(
         <p>Loading...</p>
       ):(
-        <table>
+        <table className="jobs-list-table">
             <thead>
                 <tr>
                     <th>Company</th>

@@ -59,7 +59,11 @@ export const loginController=async(req,res,next)=>{
     res.status(200).json({
         success:true,
         message:'Login Successfully',
-        user,
+        user:{
+            name:user.name,
+            email:user.email,
+            role:user.role,
+        },
         token,
     });
 };
