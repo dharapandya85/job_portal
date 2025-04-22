@@ -18,12 +18,20 @@ const CreateJob = () => {
         e.preventDefault();
         setLoading(true);
         try{
-            const response=await axios.post('/api/v1/job/create-job',{
+            const response=await axios.post('/api/v1/job/create-job',
+                {
                 company,
                 position,
                 status,
-                workType
-            });
+                workType,
+            },
+            {
+                headers: {
+                    Authorization:`Bearer ${localStorage.getItem('token')}`
+                }
+            }
+
+            );
             setLoading(false);
             navigate('/jobs');
         }catch(error){
@@ -59,6 +67,7 @@ const CreateJob = () => {
         value={status}
         onChange={(e)=>setStatus(e.target.value)}
         >
+        <option value="" disabled>Select Status</option>
         <option value="pending">Pending</option>
         <option value="interview">Interview</option>
         <option value="reject">Reject</option>
@@ -70,6 +79,7 @@ const CreateJob = () => {
         value={workType}
         onChange={(e)=>setWorkType(e.target.value)}
         >
+        <option value="" disabled>Select work Type</option>
         <option value="full-time">Full-Time</option>
         <option value="part-time">Part-Time</option>
         <option value="contract">Contract</option>

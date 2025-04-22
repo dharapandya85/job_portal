@@ -44,9 +44,9 @@ function App() {
         <Route path="/recruiter/dashboard" element={<PrivateRoute><RecruiterDashboard/></PrivateRoute>} />
         <Route path="/latest-jobs" element={<PrivateRoute><LatestJobs/></PrivateRoute>} />
         <Route path="/update-profile" element={<PrivateRoute><UpdateProfile/></PrivateRoute>} />
-        <Route path="/jobs" element={<JobsList/>} />
-        <Route path="/jobs/create" element={<CreateJob/>} />
-        <Route path="/jobs/edit/:id" element={<EditJob/>} />
+        <Route path="/jobs" element={<PrivateRoute><JobsList/></PrivateRoute>}/>
+        <Route path="/jobs/create" element={<PrivateRoute><CreateJob/></PrivateRoute>} />
+        <Route path="/jobs/edit/:id" element={<PrivateRoute><EditJob/></PrivateRoute>} />
 
         <Route path="*" element={<NotFound/>} />
       </Routes>

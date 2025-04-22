@@ -4,6 +4,9 @@ import moment from "moment";
 
 // CREATE JOB
  export const createJobController = async(req, res,next)=>{
+    try{
+
+    
     const {company,position}= req.body
     if(!company||!position){
         next('Please provide All Fields')
@@ -11,6 +14,10 @@ import moment from "moment";
     req.body.createdBy= req.user.userId
     const job = await jobsModel.create(req.body);
     res.status(201).json({job});
+} catch(error){
+    console.log("Create Job Error:",error);
+    next(error);
+}
  };
 //GET JOB
  export const getAllJobsController = async (req,res,next)=>{
@@ -49,7 +56,7 @@ import moment from "moment";
     const skip=(page-1)*limit
     queryResult=queryResult.skip(skip).limit(limit)
     //jobs count
-    const totalJobs= await jobsModel.countDocuments(queryResult)
+    const totalJobs= await jobsModel.countDocuments(queryObject)
     const numOfPage= Math.ceil(totalJobs/limit)
 
     const jobs= await queryResult;
@@ -67,7 +74,7 @@ export const updateJobController = async (req,res,next)=>{
     const {company,position}= req.body
     //validation
     if(!company||!position){
-        next('Please provide All Fields')
+       return next('Please provide All Fields')
     }
     //find job
     const job= await jobsModel.findOne({_id:id})

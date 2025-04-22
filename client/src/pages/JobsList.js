@@ -7,7 +7,11 @@ const JobsList = () => {
     const [loading,setLoading]=useState(true);
     const fetchJobs=async()=>{
         try{
-            const response =await axios.get('/api/v1/job/get-job');
+            const response =await axios.get('/api/v1/job/get-job',{
+                headers: {
+                    Authorization:`Bearer ${localStorage.getItem('token')}`
+                }
+            });
             
             setJobs(response.data.jobs);
             setLoading(false);
@@ -23,7 +27,12 @@ const JobsList = () => {
         const confirmDelete= window.confirm('Are you sure you want to delete this job?');
         if(confirmDelete){
             try{
-                await axios.delete(`/api/v1/job/delete-job/${id}`);
+                await axios.delete(`/api/v1/job/delete-job/${id}`,{
+                    headers: {
+                        Authorization:`Bearer ${localStorage.getItem('token')}`
+                    }
+
+                });
                 fetchJobs();
             } catch(error){
                 alert('Error detecting job');
