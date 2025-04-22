@@ -14,13 +14,10 @@
     color:white;
     text-decoration:none;
     font-size:1.2rem;
+    margin:0 15px;
 
 }
-.menu-item{
-    font-size:1.2rem;
-    margin:0 15px;
-    color:white;
-}
+
 .active{
     background-color:white;
     padding:10px;

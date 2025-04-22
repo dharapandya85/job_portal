@@ -28,6 +28,11 @@ const userSchema= new mongoose.Schema({
             type:String,
             default:'India'
         },
+        role:{
+            type:String,
+            enum:["recruiter","student"],
+            default:"student",
+        }
 
 
 },
@@ -48,6 +53,6 @@ userSchema.methods.comparePassword= async function(userPassword){
 
 //JSON WEBTOKEN
 userSchema.methods.createJWT=function(){
-    return JWT.sign({userId:this._id},process.env.JWT_SECRET,{expiresIn:'1d'})
+    return JWT.sign({userId:this._id,role:this.role},process.env.JWT_SECRET,{expiresIn:'7d'})
 }
 export default mongoose.model('User',userSchema);

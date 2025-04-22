@@ -33,7 +33,19 @@ const Login = () => {
       toast.error('Invalid Credentials please try again!');
       console.log(error);
     }
-  }
+    try{
+      const response =await axios.post('/api/v1/auth/login',{email,password});
+      setLoading(false);
+      if(response.data.role==='recruiter'){
+        navigate('/recruiter/dashboard');
+      }else{
+        navigate("/student/dashboard");
+      }
+    } catch(error){
+      setLoading(false);
+      alert('Error logging in')
+    }
+  };
   return (
     <>
     {loading?(<Spinner/>):(

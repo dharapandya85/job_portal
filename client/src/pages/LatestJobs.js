@@ -4,11 +4,11 @@ import {toast} from "react-toastify";
 import Layout from './../components/Layout/Layout';
 
 import '../styles/Layout.css';
-import InputForm from './../components/shared/InputForm';
+//import InputForm from './../components/shared/InputForm';
 
 const LatestJobs = () => {
   const[jobs,setJobs]= useState([]);
-  const[search,setSearch]=useState("");
+  //const[search,setSearch]=useState("");
   const fetchJobs=async()=>{
     try{
       const res=await axios.get("/api/v1/job/get-job",{
@@ -27,15 +27,15 @@ const LatestJobs = () => {
     fetchJobs();
   },[]);
   //simple search filter
-  const filteredJobs=jobs.filter((job)=>
-  job.position.toLowerCase().includes(search.toLowerCase())||
-  job.company.toLowerCase().includes(search.toLowerCase())
-);
+  // const filteredJobs=jobs.filter((job)=>
+  // job.position.toLowerCase().includes(search.toLowerCase())||
+  // job.company.toLowerCase().includes(search.toLowerCase())
+
   return (
     <Layout>
     <div className="container mt-3">
       <h1 className="mb-4 text-center"> Latest Job Listings</h1>
-      <div className="form-container mb-4">
+      {/* <div className="form-container mb-4">
         <form className="card p-3">
         <InputForm 
        htmlFor="search" 
@@ -46,29 +46,30 @@ const LatestJobs = () => {
        name="search"
        />
        </form>
-       </div>
-        <div className="row">
-          {filteredJobs.length>0?(
-        filteredJobs.map((job,index)=>(
-          <div className="col-md-6" key={index}>
-            <div className="card mb-3 job-card">
+       </div> */}
+        <div className="job-listings">
+          {jobs.length>0?(
+        jobs.map((job,index)=>(
+          <div className="card mb-3 job-card" key={index}>
             <div className="card-body">
-              <h5 className="card-title job-title">
-                {job.position} 
+            <h5 className="card-title job-title">
+            {job.position} 
 
-              </h5>
+            </h5>
+              
               <h6 className="card-subtitle mb-2 text-muted job-company">
                 {job.company}
                 </h6>
                 <div className="job-detail">
-                  <strong>Location:</strong>{job.workLocation}
-                  <strong>Type:</strong>{job.workType}
-                  <strong>Status:</strong>{job.status}
-                  <strong>Posted:</strong>{new Date(job.createdAt.$date).toLocaleDateString()}
+                 <span> <strong>Location:</strong>{job.workLocation}</span>
+                 <span>  <strong>Type:</strong>{job.workType}</span>
+                 <span> <strong>Status:</strong>{job.status}</span>
+                 <span> <strong>Posted:</strong>{new Date(job.createdAt).toLocaleDateString()}</span>
                 </div>
+           
             </div>
             </div>
-            </div>
+            
         ))
       ):(
         <p className="text-center">No jobs found.</p>

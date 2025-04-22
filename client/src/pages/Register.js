@@ -12,6 +12,8 @@ const Register = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState('student');
+  //const [loading,setLoading] = useState(false);
   
   //redux state
   const {loading}= useSelector(state=>state.alerts)
@@ -35,13 +37,21 @@ const Register = () => {
   //form function
   const handleSubmit= async(e) => {
     e.preventDefault()
-    try{
-      if(!name||!lastName||!email ||!password){
+    
+      if(!name||!lastName||!email ||!password ||!role){
         return toast.error('Please provide all Fields')
       }
+      console.log("Register Payload:",{name,lastName,email,password,role});
+      // if(password.length<6){
+      //   return toast.error("Password must be at least 6 characters");
+      // }
+      // if(!['recruiter','student'].includes(role)){
+      //   return toast.error("Please select a valid role(recruiter or student)");
+      // }
       //console.log(name,email,password,lastName);
+      try{
       dispatch(showLoading())
-      const {data}=await axios.post('/api/v1/auth/register',{name,lastName,email,password})
+      const {data}=await axios.post('/api/v1/auth/register',{name,lastName,email,password,role})
       dispatch(hideLoading())
       if(data.success){
         toast.success('Register Successfully');
@@ -52,7 +62,20 @@ const Register = () => {
       toast.error('Invalid Form Details Please Try Again!');
       console.log(error);
     }
+    try{
+      const response=await axios.post(`/api/register`,{email,password,role});
+      setLoading(false);
+      if(response.data.role==='recruiter'){
+        navigate('/recruiter/dashboard');
+      }else{
+        navigate('/student/dashboard');
+      }
+    }
+  } catch(error){
+    setLoading(false);
+    alert('Error registering');
   }
+};
   return (
     <>
     {loading?(<Spinner/>):(
@@ -95,6 +118,17 @@ const Register = () => {
        handleChange={(e)=>setPassword(e.target.value)}
        name="password"
        />
+       <div className="mb-3">
+        <label htmlFor="role" className="form-label">Role</label>
+        <select id="role" name="role" className="form-select" value={role} onChange={(e)=>setRole(e.target.value)}
+        >
+          <option value="">-- Select Role --</option>
+          <option value="student">student</option>
+          <option value="recruiter">recruiter</option>
+          </select>
+        </div>
+          
+
          {/* <div className="mb-1 ">
            <label htmlFor="name" className="form-label">
             Name
@@ -163,7 +197,33 @@ const Register = () => {
        </form>
          </div>
     )}
-     
+    <div>
+      <h2>Register</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Email:</label>
+          <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)}
+          required
+          />
+          </div>
+          <div>
+          <label>Password</label>
+          <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)}
+
+          required
+          />
+          </div>
+          <div>
+          <label>Role:</label>
+          <select value={role} onChange={(e)=>setRole(e.target.value)}>
+            <option value='student'>Student</option>
+            <option value='recruiter'>Recruiter</option>
+
+          </select>
+          </div>
+          <button type="submit" disabled={loading}>Register</button>
+     </form>
+     </div>
        </>
   );
 };
