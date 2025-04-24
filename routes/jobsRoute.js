@@ -1,7 +1,8 @@
 import express from 'express'
 import userAuth from '../middlewares/authMiddleware.js';
 import { createJobController,deleteJobController,getAllJobsController, jobStatsController, updateJobController } from '../controllers/jobsController.js';
-
+import { getSingleJobController,latestJobsController } from './../controllers/jobsController.js';
+import tryUserAuth from "../middlewares/authMiddleware.js";
 const router= express.Router()
 
 //routes
@@ -12,6 +13,9 @@ router.post('/create-job',userAuth,createJobController)
 // GET JOBS||GET
 router.get('/get-job',userAuth,getAllJobsController);
 
+// GET SINGLE JOB||GET
+router.get('/get-job/:id',userAuth,getSingleJobController);
+
 //UPDATE JOBS || PATCH
 router.patch('/update-job/:id',userAuth,updateJobController)
 
@@ -21,9 +25,8 @@ router.delete('/delete-job/:id',userAuth,deleteJobController)
 //JOB STATS FILTER || GET
 router.get('/job-stats',userAuth,jobStatsController)
 
-router.get('get-job/:id',userAuth,async(req,res)=>{
-    const job= await jobsModel.findById(req.params.id);
-    if(!job) return res.status(404).json({message:"Not Found"});
-    res.status(200).json({job});
-});
+//LATEST JOBS  || GET
+router.get('/latest-jobs',latestJobsController)
+    
+
 export default router;

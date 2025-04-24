@@ -9,7 +9,7 @@ import moment from "moment";
     
     const {company,position}= req.body
     if(!company||!position){
-        next('Please provide All Fields')
+       return next('Please provide All Fields')
     }
     req.body.createdBy= req.user.userId
     const job = await jobsModel.create(req.body);
@@ -26,6 +26,9 @@ import moment from "moment";
     const queryObject={
         createdBy:req.user.userId,
     };
+    // if(!showAll||(req.user && req.user.userId)){
+    //     queryObject.createdBy=req.user.userId;
+    // }
     //logic filters
     if(status && status!=='all'){
         queryObject.status=status;
@@ -68,6 +71,24 @@ import moment from "moment";
         numOfPage
     });
  };
+ //GET SINGLE JOBS
+ export const getSingleJobController = async (req,res,next)=>{
+    try{
+
+        req.body.createdBy= req.user.userId
+        const job = await jobsModel.findOne({
+            _id:req.params.id,
+            createdBy:req.user.userId
+        });
+        if(!job){
+            return res.status(404).json({message:"Job not found"});
+        }
+        res.status(200).json({job});
+    } catch(error){
+        
+        next(error);
+    }
+ };
 //UPDATE JOB
 export const updateJobController = async (req,res,next)=>{
     const {id}= req.params
@@ -82,7 +103,7 @@ export const updateJobController = async (req,res,next)=>{
     if(!job){
         next(`No Jobs found with this id: ${id}`)
     }
-    if(!req.user.userId===job.createdBy.toString()){
+    if(req.user.userId!==job.createdBy.toString()){
         next('You are not authorized to update this job')
         return;
     }
@@ -94,6 +115,18 @@ export const updateJobController = async (req,res,next)=>{
     res.status(200).json({updateJob});
     
 };
+//LATEST JOBS
+export const latestJobsController = async (req, res, next) => {
+    try {
+      const jobs = await jobsModel.find({})
+        .sort('-createdAt')
+        .limit(10); // or more, depending on how many you want to show
+      res.status(200).json({ jobs });
+    } catch (error) {
+      console.error('Latest Jobs Error:', error);
+      res.status(500).json({ message: 'Error fetching latest jobs' });
+    }
+  };
 // DELETE JOBS
 export const deleteJobController=async(req,res,next)=>{
     const {id}=req.params

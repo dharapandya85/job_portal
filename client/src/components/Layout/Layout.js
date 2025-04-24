@@ -9,7 +9,7 @@ const Layout = ({children}) => {
   const location = useLocation();
   const navigate=useNavigate();
   const userRole=JSON.parse(localStorage.getItem('user'))?.role;
-
+  const userEmail=JSON.parse(localStorage.getItem('user'))?.email;
   const sidebarMenu=userRole==='recruiter'?recruiterMenu:studentMenu;
   //logout handler
   const handleLogout=()=>{
@@ -26,7 +26,7 @@ const Layout = ({children}) => {
             </div>
             <hr/>
             
-            <p className="text-center text-warning">Welcome: username</p>
+            <p className="text-center text-warning username ">Welcome  {userEmail}</p>
             <hr/>
             <div className="menu"> 
           {sidebarMenu.map((menu)=>{

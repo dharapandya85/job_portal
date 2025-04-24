@@ -7,7 +7,7 @@ const JobsList = () => {
     const [loading,setLoading]=useState(true);
     const fetchJobs=async()=>{
         try{
-            const response =await axios.get('/api/v1/job/get-job',{
+            const response =await axios.get(`/api/v1/job/get-job`,{
                 headers: {
                     Authorization:`Bearer ${localStorage.getItem('token')}`
                 }

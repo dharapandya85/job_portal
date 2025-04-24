@@ -11,15 +11,13 @@ const LatestJobs = () => {
   //const[search,setSearch]=useState("");
   const fetchJobs=async()=>{
     try{
-      const res=await axios.get("/api/v1/job/get-job",{
-        headers:{
-          Authorization:`Bearer ${localStorage.getItem('token')}`
-        }
-      });
-      if(res.data?.jobs){
-        setJobs(res.data.jobs);
-      }
+      const res=await axios.get(`/api/v1/job/latest-jobs`);
+       
+      console.log("Response data",res.data);
+      setJobs(res.data.jobs);
+      
     } catch(error){
+      console.log('Error fetching jobs:',error);
       toast.error('Failed to fetch jobs');
     }
   };
@@ -48,7 +46,7 @@ const LatestJobs = () => {
        </form>
        </div> */}
         <div className="job-listings">
-          {jobs.length>0?(
+          {
         jobs.map((job,index)=>(
           <div className="card mb-3 job-card" key={index}>
             <div className="card-body">
@@ -70,10 +68,10 @@ const LatestJobs = () => {
             </div>
             </div>
             
-        ))
-      ):(
+        ))}
+      {jobs.length===0 &&
         <p className="text-center">No jobs found.</p>
-      )}
+      }
       </div>
     </div>
     </Layout>

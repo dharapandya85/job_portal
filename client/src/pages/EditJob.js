@@ -13,7 +13,7 @@ const EditJob = () => {
     useEffect(()=>{
         const fetchJob=async()=>{
             try{
-                const response=await axios.get(`/api/v1/get-job/${id}`,{
+                const response=await axios.get(`/api/v1/job/get-job/${id}`,{
                     headers: {
                         Authorization:`Bearer ${localStorage.getItem('token')}`
                     }
@@ -23,6 +23,7 @@ const EditJob = () => {
                 setPosition(position);
                 setStatus(status);
                 setWorkType(workType);
+                //setJob(res.data.job);
             } catch(error){
                 alert('Error fetching job');
             }
@@ -34,7 +35,7 @@ const EditJob = () => {
         e.preventDefault();
         setLoading(true);
         try{
-            const response=await axios.patch(`/api/update-job/${id}`,{
+            const response=await axios.patch(`/api/v1/job/update-job/${id}`,{
                 company,
                 position,
                 status,
@@ -99,7 +100,7 @@ const EditJob = () => {
         <option value="contract">Contract</option>
         </select>
         </div>
-        <button type='submit' disabled={loading}>Create Job</button>
+        <button type='submit' disabled={loading}>{loading?'Updating...':'Update Job'}</button>
         </form>
         </div>
   );

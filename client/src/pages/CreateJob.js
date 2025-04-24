@@ -17,13 +17,20 @@ const CreateJob = () => {
     const handleSubmit=async(e)=>{
         e.preventDefault();
         setLoading(true);
-        try{
-            const response=await axios.post('/api/v1/job/create-job',
-                {
+        console.log({
                 company,
                 position,
                 status,
                 workType,
+                token:localStorage.getItem('token'),
+        });
+        try{
+            const response=await axios.post('/api/v1/job/create-job',
+                {
+                    company,
+                    position,
+                    status,
+                    workType,
             },
             {
                 headers: {
@@ -32,11 +39,14 @@ const CreateJob = () => {
             }
 
             );
+            //const createdJob= response.data.job;
+            console.log(response.data);
             setLoading(false);
             navigate('/jobs');
         }catch(error){
             setLoading(false);
             alert('Error creating job');
+            console.error(error);
         }
     };
   return (

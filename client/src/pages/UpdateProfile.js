@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import {useSelector} from "react-redux";
-
+import '../styles/UpdateProfile.css';
 const UpdateProfile = () => {
     const {user}=useSelector((state)=>state.auth);
     const [formData,setFormData]=useState({
@@ -16,7 +16,7 @@ const UpdateProfile = () => {
         alert('Profile Updated!');
     };
   return (
-    <div>
+    <div className="update-profile-container">
         <h1> Update Your Profile</h1>
         <form onSubmit={handleSubmit}>
             <input name="name" value={formData.name} onChange={handleChange} placeholderName="Name"/><br/>
