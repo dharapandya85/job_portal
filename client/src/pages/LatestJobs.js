@@ -2,6 +2,7 @@ import React,{useEffect,useState} from 'react';
 import axios from "axios";
 import {toast} from "react-toastify";
 import Layout from './../components/Layout/Layout';
+import { API_BASE_URL } from "../api";
 
 import '../styles/Layout.css';
 //import InputForm from './../components/shared/InputForm';
@@ -11,7 +12,7 @@ const LatestJobs = () => {
   //const[search,setSearch]=useState("");
   const fetchJobs=async()=>{
     try{
-      const res=await axios.get(`/api/v1/job/latest-jobs`);
+      const res=await axios.get(`${API_BASE_URL}/api/v1/job/latest-jobs`);
        
       console.log("Response data",res.data);
       setJobs(res.data.jobs);

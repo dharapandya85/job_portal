@@ -72,7 +72,7 @@ app.use("/api/v1/job", jobsRoutes);
 app.use("/api-doc",swaggerUi.serve,swaggerUi.setup(spec));
 //validation middleware
 app.use(errorMiddleware);
-
+app.set('trust proxy',1);
 //port
 const PORT=process.env.PORT||8080;
 //listen
@@ -81,3 +81,4 @@ app.listen(PORT,()=>{
         
     );
 });
+

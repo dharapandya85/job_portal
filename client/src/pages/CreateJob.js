@@ -3,6 +3,7 @@ import axios from 'axios';
 import {useNavigate} from "react-router-dom";
 import InputForm from './../components/shared/InputForm';
 import '../styles/Jobs.css';
+import { API_BASE_URL } from "../api";
 
 const CreateJob = () => {
     const [company,setCompany]=useState("");
@@ -25,7 +26,8 @@ const CreateJob = () => {
                 token:localStorage.getItem('token'),
         });
         try{
-            const response=await axios.post('/api/v1/job/create-job',
+            const response=await axios.post(
+                `${API_BASE_URL}/api/v1/job/create-job`,
                 {
                     company,
                     position,

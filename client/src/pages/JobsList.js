@@ -2,12 +2,14 @@ import React,{useEffect,useState} from 'react'
 import axios from 'axios';
 import {Link} from "react-router-dom";
 import '../styles/Jobs.css';
+import { API_BASE_URL } from "../api";
+
 const JobsList = () => {
     const [jobs,setJobs]=useState([]);
     const [loading,setLoading]=useState(true);
     const fetchJobs=async()=>{
         try{
-            const response =await axios.get(`/api/v1/job/get-job`,{
+            const response =await axios.get(`${API_BASE_URL}/api/v1/job/get-job`,{
                 headers: {
                     Authorization:`Bearer ${localStorage.getItem('token')}`
                 }
@@ -27,7 +29,7 @@ const JobsList = () => {
         const confirmDelete= window.confirm('Are you sure you want to delete this job?');
         if(confirmDelete){
             try{
-                await axios.delete(`/api/v1/job/delete-job/${id}`,{
+                await axios.delete(`${API_BASE_URL}/api/v1/job/delete-job/${id}`,{
                     headers: {
                         Authorization:`Bearer ${localStorage.getItem('token')}`
                     }
@@ -62,7 +64,7 @@ const JobsList = () => {
                         <td>{job.status}</td>
                         <td>{job.workType}</td>
                         <td>
-                            <Link to={`/jobs/edit/${job._id}`}>Edit</Link>
+                            <Link to={`${API_BASE_URL}/jobs/edit/${job._id}`}>Edit</Link>
                             <button onClick={()=>handleDelete(job._id)}>Delete</button>
                         </td>
                     </tr>

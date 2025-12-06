@@ -5,6 +5,7 @@ import {useDispatch,useSelector} from "react-redux";
 import {showLoading,hideLoading} from "../redux/features/alertSlice";
 import axios from "axios";
 import {toast} from "react-toastify";
+import { API_BASE_URL } from "../api";
 
 import Spinner from './../components/shared/Spinner';
 const Login = () => {
@@ -21,7 +22,7 @@ const [ setLoading] = useState(false);
     try{
       //console.log(email,password);
       dispatch(showLoading())
-      const {data}=await axios.post('/api/v1/auth/login',{email,password})
+      const {data}=await axios.post(`${API_BASE_URL}/api/v1/auth/login`,{email,password})
       if(data.success){
         dispatch(hideLoading())
         localStorage.setItem('token',data.token);
