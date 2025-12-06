@@ -3,7 +3,7 @@ import "../../styles/Layout.css";
 import { recruiterMenu,studentMenu } from './Menus/UserMenu';
 import {Link,useLocation,useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
-import {useSelector} from "react-redux";
+//import {useSelector} from "react-redux";
 
 const Layout = ({children}) => {
   const location = useLocation();

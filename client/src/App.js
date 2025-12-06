@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import {Routes,Route} from 'react-router-dom';
 import './App.css';
 import  React from 'react';
@@ -7,7 +7,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 //import Dashboard from './pages/Dashboard';
 import NotFound from './pages/NotFound';
-import {ToastContainer,toast} from "react-toastify";
+import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import PrivateRoute from './components/routes/PrivateRoute';
 import PublicRoute from './components/routes/PublicRoute';

@@ -2,6 +2,8 @@ import React,{useState,useEffect} from 'react'
 import axios from "axios";
 import {useParams,useNavigate} from "react-router-dom";
 import '../styles/Jobs.css';
+import { API_BASE_URL } from "../api";
+
 const EditJob = () => {
     const [company,setCompany]=useState("");
     const [position,setPosition]=useState("");
@@ -13,7 +15,7 @@ const EditJob = () => {
     useEffect(()=>{
         const fetchJob=async()=>{
             try{
-                const response=await axios.get(`/api/v1/job/get-job/${id}`,{
+                const response=await axios.get(`${API_BASE_URL}/api/v1/job/get-job/${id}`,{
                     headers: {
                         Authorization:`Bearer ${localStorage.getItem('token')}`
                     }
