@@ -3,6 +3,7 @@ import {Link,useNavigate} from "react-router-dom";
 import InputForm from '../components/shared/InputForm';
 import {useDispatch,useSelector} from 'react-redux';
 import {showLoading,hideLoading} from "../redux/features/alertSlice";
+import { API_BASE_URL } from "../api";
 
 import axios from "axios";
 import Spinner from './../components/shared/Spinner';
@@ -51,7 +52,7 @@ const Register = () => {
       //console.log(name,email,password,lastName);
       try{
       dispatch(showLoading())
-      const {data}=await axios.post('/api/v1/auth/register',{name,lastName,email,password,role})
+      const {data}=await axios.post(`${API_BASE_URL}/api/v1/auth/register`,{name,lastName,email,password,role})
       dispatch(hideLoading())
       if(data.success){
         toast.success('Register Successfully');
