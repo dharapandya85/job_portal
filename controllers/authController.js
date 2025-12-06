@@ -12,12 +12,12 @@ export const registerController= async(req,res,next)=>{
         
         const normalizedRole = role?.toLowerCase();
         if(!normalizedRole||!['recruiter','student'].includes(normalizedRole)){
-            next("Valid role is required(recruiter or student)");
+            return next("Valid role is required(recruiter or student)");
         }
 
         const existingUser= await userModel.findOne({email})
         if(existingUser){
-            next("Email Already Register Please Login");
+           return  next("Email Already Register Please Login");
             
         }
         const user= await userModel.create({name,email,password,lastName,role:normalizedRole});
@@ -42,17 +42,17 @@ export const loginController=async(req,res,next)=>{
     const {email,password}= req.body
     //validation
     if(!email || !password){
-        next('Please Provide All Fields')
+        return next('Please Provide All Fields')
     }
     //find user by email
     const user = await userModel.findOne({email}).select("+password")
     if(!user){
-        next('Invalid Username or password ')
+        return next('Invalid Username or password ')
     }
     //compare password
     const isMatch= await user.comparePassword(password)
     if(!isMatch){
-        next('Invalid Username or password')
+        return next('Invalid Username or password')
     }
     user.password= undefined;
     const token= user.createJWT()
